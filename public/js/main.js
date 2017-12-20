@@ -12,3 +12,15 @@ campo.on("input", function(){
     $("#campo-digitacao__numero--caracteres").text(numeroCaracteres);
     $("#campo-digitacao__numero--palavras").text(numeroPalavras);
 });
+
+campo.one("focus", function(){
+    let tempoRestante = 15;
+    let idInterval = setInterval(function(){    
+        $("#informacoes__tempo").text(tempoRestante);    
+        if(tempoRestante <= 0){
+            campo.attr("disabled", true);
+            clearInterval(idInterval);
+        }
+        tempoRestante--;
+    }, 1000);
+});

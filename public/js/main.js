@@ -34,14 +34,19 @@ function inicializaCronometro(){
             $("#campo-digitacao__btn--reiniciar").attr("disabled", true);
             $("#informacoes__tempo").text(tempoRestante);    
             if(tempoRestante <= 0){
-                campo.attr("disabled", true);
-                clearInterval(idInterval);
-                $("#campo-digitacao__btn--reiniciar").attr("disabled", false);    
-                campo.addClass("campo-desativado");
+                finalizaJogo(idInterval);
             }
             tempoRestante--;
         }, 1000);
     });
+}
+
+function finalizaJogo(idInterval){
+    campo.attr("disabled", true);
+    clearInterval(idInterval);
+    $("#campo-digitacao__btn--reiniciar").attr("disabled", false);    
+    campo.addClass("campo-desativado");
+    inserePlacar();
 }
 
 function inicializaMarcadores(){
@@ -53,10 +58,10 @@ function inicializaMarcadores(){
     
         if(digitado == comparavel){
             campo.attr("id","campo-certo");
-            ("#campo-errado").remove();
+            $("#campo-errado").remove();
         }else{
             campo.attr("id", "campo-errado");    
-            ("#campo-certo").remove();
+            $("#campo-certo").remove();
         }
     });    
 }
@@ -73,8 +78,51 @@ function reiniciaJogo(){
     $("#campo-digitacao__numero--palavras").text(0);
     $("#campo-digitacao__btn--reiniciar").attr("disabled", true);
     campo.removeClass("campo-desativado");
-    ("#campo-certo").remove();
-    ("#campo-errado").remove();
+    $("#campo-certo").removeAttr("id", "campo-certo");
+    $("#campo-errado").removeAttr("id", "campo-errado");
+    $("textarea").attr("id", "campo-digitacao");
     
     inicializaCronometro();
 }   
+
+function inserePlacar(){
+    let corpoTabela = $(".placar").find("tbody");
+    let nPalavras = $("#campo-digitacao__numero--palavras").text();
+    let nCaracteres = $("#campo-digitacao__numero--caracteres").text();
+    let usuario = "Eduardo";
+
+    let trLinha = document.createElement("tr");
+    let tdLinhaNome = document.createElement("td");
+    let tdLinhaPalavras = document.createElement("td");    
+    let tdRemover = document.createElement("td");
+    let aRemove = document.createElement("a");
+    let iRemove = document.createElement("i");
+    
+    iRemove.classList.add("material-icons");
+    iRemove.classList.add("small");
+    iRemove.textContent = "delete";
+
+    aRemove.appendChild(iRemove);
+    tdRemover.setAttribute("id", "campo-digitacao__botao--remover");
+    aRemove.setAttribute("href", "#");
+
+    tdLinhaNome.textContent = usuario;
+    tdLinhaPalavras.textContent = nPalavras;
+   
+    tdRemover.appendChild(aRemove);
+
+    trLinha.appendChild(tdLinhaNome);
+    trLinha.appendChild(tdLinhaPalavras);
+    trLinha.appendChild(tdRemover);
+    
+    corpoTabela.prepend(trLinha);
+
+    removerLinha();
+}
+
+function removerLinha(){
+    $("#campo-digitacao__botao--remover").on("click", function(e){
+        e.preventDefault();
+        $(this).parent().remove();
+    });
+}

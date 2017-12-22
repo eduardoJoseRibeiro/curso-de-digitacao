@@ -2,21 +2,36 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/libs/materialize.min.css">
+    <link rel="stylesheet" href="css/libs/google-fonts.css">
+    <link rel="stylesheet" href="css/estilos.css">
     <title>Curso de Digitação</title>
 </head>
 <body>
-    <h1>Curso de Digitação</h1>
-    <p class="frase">Uma bela frase escrita por mim!</p>
-    <ul class="informacoes">
-        <li> <span id="informacoes__numero--palavras"></span> palavras</li>
-        <li> <span id="informacoes__tempo">15</span> segundos</li>
-    </ul> 
-
-    <textarea name="campo-digitacao" id="campo-digitacao" cols="30" rows="10"></textarea>
-    <ul>
-        <li> <span id="campo-digitacao__numero--caracteres">0</span> caracteres</li>
-        <li> <span id="campo-digitacao__numero--palavras">0</span> palavras</li>
-    </ul>
+    <div class="container">
+        <h1 class="center">Curso de Digitação</h1>
+        <p class="frase">Uma bela frase escrita por mim!</p>
+        <ul class="informacoes center">
+            <li>
+                <i class="material-icons small icones">description</i>
+                <span id="informacoes__numero--palavras"></span> palavras
+            </li>
+            <li>
+                <i class="material-icons small icones">query_builder</i>
+                <span id="informacoes__tempo">15</span> segundos
+            </li>
+        </ul> 
+    
+        <textarea name="campo-digitacao" id="campo-digitacao" cols="30" rows="10"></textarea>
+        <div class="botoes">
+            <a class="btn-floating btn-large waves-effect waves-light red" id="campo-digitacao__btn--reiniciar"><i class="material-icons">restore</i></a>            
+        </div>
+        <!-- <button id="campo-digitacao__btn--reiniciar">Reiniciar Jogo</button>-->
+        <ul class="center">
+            <li> <span id="campo-digitacao__numero--caracteres">0</span> caracteres</li>
+            <li> <span id="campo-digitacao__numero--palavras">0</span> palavras</li>
+        </ul>
+    </div>
     <script src="js/jquery.js"></script>
     <script src="js/main.js"></script>
 </body>
